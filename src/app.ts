@@ -1,3 +1,8 @@
+/*
+ * WHOIS Server main application file. This file defines the express server and single route for this application
+ * 
+ * @author Joseph Cauble (josephdc96)
+ */
 import express from 'express';
 import validator from 'validator';
 import https from 'https';
@@ -9,13 +14,16 @@ dotenv.config();
 const app = express();
 const port = 3030;
 
+/**
+ * Middleware route between the WHOIS XML API and the React frontend
+ */
 app.get('/domain', cors(), (req, res) => {
     var url = sanitizeURL(req.query.domain.toString());
     var isDomain = validator.isFQDN(url);
     var isIP = validator.isIP(url);
     var buffer = '';
     if (isDomain || isIP) {
-        https.get(`https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=${process.env.API_KEY}&outputFormat=json&ignoreRawTexts=1&domainName=${url}`, r => {
+        https.get(`https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=${process.env.API_KEY}&outputFormat=json&domainName=${url}`, r => {
             r.on('data', data => {
                 buffer = buffer += data;
             })
