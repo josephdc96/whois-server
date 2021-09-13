@@ -3,7 +3,6 @@
  * 
  * @author Joseph Cauble (josephdc96)
  */
-
 import express from 'express';
 import validator from 'validator';
 import https from 'https';
