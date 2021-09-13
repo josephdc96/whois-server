@@ -6,9 +6,9 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN npm build
-
 COPY . .
+
+RUN npm run-script build
 
 EXPOSE 3030
 CMD [ "node", "dist/app.js"]
